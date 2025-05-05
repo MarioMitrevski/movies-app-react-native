@@ -1,6 +1,7 @@
+import Constants from 'expo-constants';
 import { secureStorage } from './secureStorage';
 
-const TMDB_ACCESS_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZTBhM2EzZTUxNTY5NTNhZWY4NWY2OTY5ZDUyY2IzOCIsIm5iZiI6MTY0NjM0NzIwOC4yNjMsInN1YiI6IjYyMjE0M2M4YzI4MjNhMDA0MjE1M2E5MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.06eLUwP0Jk7_QHUAAdWUDoMZYHm9BOF8oiVR8HqEswo';
+const TMDB_ACCESS_TOKEN = Constants.expoConfig?.extra?.tmdbApiKey || process.env.TMDB_API_KEY;
 
 export async function initializeApp() {
   try {
