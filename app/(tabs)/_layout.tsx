@@ -1,4 +1,5 @@
 import { useThemeColor } from '@/components/Themed';
+import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 
 export default function TabLayout() {
@@ -9,7 +10,7 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          display: 'none',
+          display: 'flex',
         },
       }}
     >
@@ -17,6 +18,18 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Movies',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="film" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="search"
+        options={{
+          title: 'Search',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="search" size={size} color={color} />
+          ),
         }}
       />
     </Tabs>

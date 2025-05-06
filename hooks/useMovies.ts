@@ -13,23 +13,23 @@ export function useMovies() {
     setLoading(true);
     setError(null);
     try {
-      const data = await movieService.getPopularMovies(pageNum);
+      const newMovies = await movieService.getPopularMovies(pageNum);
       // Filter out any movies that already exist in our list using the ref
-      const newMovies = data.results.filter(
-        newMovie => !moviesRef.current.some(existingMovie => existingMovie.id === newMovie.id)
+      const uniqueNewMovies = newMovies.filter(
+        (newMovie: Movie) => !moviesRef.current.some(existingMovie => existingMovie.id === newMovie.id)
       );
       
-      const updatedMovies = pageNum === 1 ? newMovies : [...moviesRef.current, ...newMovies];
+      const updatedMovies = pageNum === 1 ? uniqueNewMovies : [...moviesRef.current, ...uniqueNewMovies];
       moviesRef.current = updatedMovies;
       setMovies(updatedMovies);
-      setHasMore(data.page < data.total_pages);
+      setHasMore(uniqueNewMovies.length > 0);
     } catch (e) {
       setError('Failed to load movies. Please try again later.');
       console.error('Error fetching movies:', e);
     } finally {
       setLoading(false);
     }
-  }, []); // Remove movies from dependencies
+  }, []);
 
   useEffect(() => {
     fetchMovies(1);

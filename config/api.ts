@@ -8,6 +8,9 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  params: {
+    api_key: 'YOUR_TMDB_API_KEY', // Replace with your actual TMDB API key
+  },
   timeout: 10000, // 10 seconds
 });
 
