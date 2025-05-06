@@ -9,6 +9,16 @@ export interface Movie {
   release_date: string;
 }
 
+export interface MovieDetails extends Movie {
+  backdrop_path: string;
+  runtime: number;
+  genres: { id: number; name: string }[];
+  tagline?: string;
+  status?: string;
+  budget?: number;
+  revenue?: number;
+}
+
 export interface MoviesResponse {
   page: number;
   results: Movie[];
@@ -24,8 +34,10 @@ export const movieService = {
     return response.data;
   },
 
-  async getMovieDetails(movieId: number): Promise<Movie> {
-    const response = await api.get<Movie>(`/movie/${movieId}`);
+  async getMovieDetails(movieId: number): Promise<MovieDetails> {
+    const response = await api.get<MovieDetails>(`/movie/${movieId}`, {
+      params: { language: 'en-US' },
+    });
     return response.data;
   },
 

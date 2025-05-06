@@ -1,11 +1,10 @@
 import axios from 'axios';
+import { TMDB_BASE_URL } from '../constants/tmdb';
 import { secureStorage } from '../utils/secureStorage';
-
-const BASE_URL = 'https://api.themoviedb.org/3';
 
 // Create axios instance with default config
 const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: TMDB_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },

@@ -1,4 +1,4 @@
-import { useThemeColor } from '@/hooks/useThemeColor';
+import { useThemeColor } from '@/components/Themed';
 import { Tabs } from 'expo-router';
 
 export default function TabLayout() {
@@ -7,9 +7,12 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: tintColor,
         headerShown: false,
-      }}>
+        tabBarStyle: {
+          display: 'none',
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{

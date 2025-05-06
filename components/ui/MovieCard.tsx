@@ -1,50 +1,40 @@
-import { useThemeColor } from '@/hooks/useThemeColor';
-import { Movie } from '@/services/movieService';
-import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Text, View } from '@/components/Themed';
+import { TMDB_IMAGE_BASE_URL } from '@/constants/tmdb';
+import { Image, StyleSheet } from 'react-native';
 
-export default function MovieCard({ movie }: { movie: Movie }) {
-  const backgroundColor = useThemeColor({}, 'background');
-  const textColor = useThemeColor({}, 'text');
-  const placeholderColor = useThemeColor({}, 'icon');
+interface MovieCardProps {
+  movie: {
+    id: number;
+    title: string;
+    poster_path: string;
+  };
+}
 
+export default function MovieCard({ movie }: MovieCardProps) {
   return (
-    <View style={[styles.card, { backgroundColor }]}>
-      {movie.poster_path ? (
-        <Image
-          source={{ uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` }}
-          style={styles.image}
-        />
-      ) : (
-        <View style={[styles.image, { backgroundColor: placeholderColor }]} />
-      )}
-      <View style={styles.info}>
-        <Text style={[styles.title, { color: textColor }]}>{movie.title}</Text>
-      </View>
+    <View style={styles.container}>
+      <Image
+        source={{ uri: `${TMDB_IMAGE_BASE_URL}/w500${movie.poster_path}` }}
+        style={styles.poster}
+      />
+      <Text style={styles.title}>{movie.title}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    flexDirection: 'row',
-    margin: 10,
-    borderRadius: 8,
-    elevation: 2,
-    overflow: 'hidden',
+  container: {
+    margin: 8,
+    width: 150,
   },
-  image: {
-    width: 100,
-    height: 150,
+  poster: {
+    width: 150,
+    height: 225,
     borderRadius: 8,
-  },
-  info: {
-    flex: 1,
-    marginLeft: 10,
-    justifyContent: 'center',
   },
   title: {
-    fontWeight: 'bold',
+    marginTop: 8,
     fontSize: 16,
+    fontWeight: 'bold',
   },
 }); 
